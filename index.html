@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StringLog Pro — La tua corda. La tua storia.</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0B0F0C">
+<meta name="description" content="StringLog Pro: gestione professionale delle incordature da tennis. Storico, costi, analisi AI, promemoria e statistiche per giocatori, maestri e circoli.">
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     StringLog Pro — Landing
+     Design: campo in terra battuta + corde tese.
+     Palette: clay court, navy notte, string-white, gold trophy.
+     Type: Fraunces (display, con carattere) + Inter (body).
+  ───────────────────────────────────────────────────────────── */
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --clay:      #C56A3D;   /* terra battuta */
+    --clay-deep: #A6522C;
+    --navy:      #0E2237;   /* navy notte */
+    --navy-soft: #16324C;
+    --court:     #2E6E4E;   /* verde campo */
+    --string:    #F6F1E7;   /* bianco corda */
+    --paper:     #FBF8F2;
+    --gold:      #C9A227;
+    --ink:       #1A2430;
+    --muted:     #6A7480;
+    --line:      #E4DED2;
+    --radius: 14px;
+    --shadow: 0 10px 40px -12px rgba(14,34,55,0.28);
+    --shadow-sm: 0 4px 18px -8px rgba(14,34,55,0.22);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; line-height: 1.08; letter-spacing: -0.01em; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .wrap { width: min(1160px, 92vw); margin-inline: auto; }
+  section { padding: clamp(64px, 9vw, 120px) 0; }
+
+  /* eyebrow label */
+  .eyebrow {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--clay);
+    display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px;
+  }
+  .eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--clay); }
+
+  /* buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-weight: 600; font-size: 16px; padding: 15px 28px;
+    border-radius: 999px; cursor: pointer; border: 2px solid transparent;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-primary { background: var(--clay); color: #fff; box-shadow: var(--shadow-sm); }
+  .btn-primary:hover { background: var(--clay-deep); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn-ghost { background: transparent; color: var(--navy); border-color: var(--navy); }
+  .btn-ghost:hover { background: var(--navy); color: #fff; transform: translateY(-2px); }
+  .btn-light { background: var(--string); color: var(--navy); }
+  .btn-light:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+  /* ── NAV ─────────────────────────────────────────────── */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(251,248,242,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .logo { display: flex; align-items: center; gap: 11px; font-family: 'Fraunces'; font-weight: 900; font-size: 22px; color: var(--navy); }
+  .logo .ball { width: 32px; height: 32px; border-radius: 9px; background: #0B0F0C; position: relative; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center; }
+  .logo .ball::after { content: ''; width: 22px; height: 22px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg stroke='%23A6EE2E' stroke-width='3.2' stroke-linecap='round'%3E%3Cline x1='36' y1='36' x2='84' y2='84'/%3E%3Cline x1='84' y1='36' x2='36' y2='84'/%3E%3Cline x1='60' y1='26' x2='60' y2='94'/%3E%3Cline x1='26' y1='60' x2='94' y2='60'/%3E%3C/g%3E%3Ccircle cx='60' cy='60' r='11' fill='none' stroke='%23A6EE2E' stroke-width='3.2'/%3E%3Ccircle cx='60' cy='60' r='4.5' fill='%23A6EE2E'/%3E%3Cg fill='%23A6EE2E'%3E%3Ccircle cx='60' cy='26' r='4'/%3E%3Ccircle cx='60' cy='94' r='4'/%3E%3Ccircle cx='26' cy='60' r='4'/%3E%3Ccircle cx='94' cy='60' r='4'/%3E%3Ccircle cx='36' cy='36' r='3.4'/%3E%3Ccircle cx='84' cy='36' r='3.4'/%3E%3Ccircle cx='36' cy='84' r='3.4'/%3E%3Ccircle cx='84' cy='84' r='3.4'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: contain; background-repeat: no-repeat; background-position: center; }
+  .logo em { color: var(--clay); font-style: normal; }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a { font-size: 15px; font-weight: 500; color: var(--ink); transition: color .15s; }
+  .nav-links a:hover { color: var(--clay); }
+  .nav-cta { font-weight: 600; padding: 10px 22px; border-radius: 999px; background: var(--navy); color: #fff !important; }
+  .nav-cta:hover { background: var(--navy-soft); }
+  .burger { display: none; background: none; border: none; cursor: pointer; font-size: 26px; color: var(--navy); }
+
+  /* ── HERO ────────────────────────────────────────────── */
+  .hero { position: relative; color: var(--string); overflow: hidden;
+    background:
+      radial-gradient(ellipse 90% 70% at 20% 0%, #BB6A45 0%, transparent 55%),
+      radial-gradient(ellipse 80% 90% at 90% 100%, #8E5138 0%, transparent 60%),
+      linear-gradient(155deg, #AC6144 0%, #995440 45%, #834737 100%);
+  }
+  /* clay court texture — subtle grain + drag lines */
+  .hero-clay {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.38; mix-blend-mode: multiply;
+    background-image:
+      repeating-linear-gradient(92deg, rgba(120,50,25,0.16) 0 2px, transparent 2px 7px),
+      repeating-linear-gradient(0deg, rgba(150,70,40,0.10) 0 1px, transparent 1px 5px);
+  }
+  /* white court lines — baseline, service lines, net */
+  .hero-court { position: absolute; inset: 0; pointer-events: none; opacity: 0.9; }
+  .hero-court .line { position: absolute; background: rgba(255,247,238,0.55); }
+  .hero-court .baseline   { left: -5%; right: -5%; bottom: 8%; height: 3px; }
+  .hero-court .service    { left: -5%; right: -5%; bottom: 34%; height: 2px; opacity: .8; }
+  .hero-court .center-v   { left: 50%; bottom: 8%; height: 26%; width: 2px; transform: translateX(-50%); opacity: .7; }
+  .hero-court .sideline-l { left: 12%; bottom: 8%; height: 46%; width: 2px; opacity: .45; transform: skewX(-20deg); transform-origin: bottom; }
+  .hero-court .sideline-r { right: 12%; bottom: 8%; height: 46%; width: 2px; opacity: .45; transform: skewX(20deg); transform-origin: bottom; }
+  /* string grid signature — the racket face, now more visible */
+  .hero-strings {
+    position: absolute; inset: 0; opacity: 0.16; pointer-events: none;
+    background-image:
+      repeating-linear-gradient(90deg, var(--string) 0 1.5px, transparent 1.5px 40px),
+      repeating-linear-gradient(0deg, var(--string) 0 1.5px, transparent 1.5px 40px);
+    mask-image: radial-gradient(ellipse 55% 65% at 78% 32%, #000 25%, transparent 70%);
+  }
+  .hero-glow { position: absolute; width: 520px; height: 520px; right: -100px; top: -140px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,214,150,0.35), transparent 62%); pointer-events: none; }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 50px; align-items: center;
+    padding-block: clamp(70px, 10vw, 120px); }
+  .hero .eyebrow { color: #FDE9CE; }
+  .hero .eyebrow::before { background: #FDE9CE; }
+  .hero h1 { font-size: clamp(44px, 6.4vw, 78px); font-weight: 900; color: #fff; margin-bottom: 22px; text-shadow: 0 2px 20px rgba(80,30,10,0.25); }
+  .hero h1 .accent { color: #FFD98A; font-style: italic; }
+  .hero p.lede { font-size: clamp(17px, 2vw, 21px); color: #FBEADD; max-width: 30em; margin-bottom: 34px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 34px; }
+  .hero .btn-primary { background: var(--navy); color: #fff; }
+  .hero .btn-primary:hover { background: #071626; }
+  .hero-trust { display: flex; gap: 26px; flex-wrap: wrap; font-size: 14px; color: #F3D6BF; }
+  .hero-trust span { display: flex; align-items: center; gap: 7px; }
+  .hero-trust b { color: #fff; font-weight: 600; }
+
+  /* phone mockup */
+  .phone {
+    justify-self: center; width: 290px; height: 588px; border-radius: 42px;
+    background: linear-gradient(160deg, #1D3B58, #0B1C2E); padding: 13px;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), inset 0 0 0 2px rgba(255,255,255,0.06);
+    position: relative; transform: rotate(2.5deg); transition: transform .5s ease;
+  }
+  .phone:hover { transform: rotate(0deg) translateY(-6px); }
+  .phone::before { content: ''; position: absolute; top: 26px; left: 50%; transform: translateX(-50%);
+    width: 96px; height: 24px; background: #0B1C2E; border-radius: 999px; z-index: 3; }
+  .phone-screen { width: 100%; height: 100%; border-radius: 30px; background: var(--paper); overflow: hidden;
+    display: flex; flex-direction: column; }
+  .ph-top { background: var(--navy); padding: 44px 18px 16px; color: #fff; }
+  .ph-top .ph-brand { font-family: 'Fraunces'; font-weight: 900; font-size: 17px; display: flex; align-items: center; gap: 8px; }
+  .ph-top .ph-brand .d { width: 20px; height: 20px; border-radius: 5px; background: #0B0F0C; display: inline-flex; align-items: center; justify-content: center; }
+  .ph-top .ph-brand .d::after { content: ''; width: 14px; height: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg stroke='%23A6EE2E' stroke-width='4' stroke-linecap='round'%3E%3Cline x1='36' y1='36' x2='84' y2='84'/%3E%3Cline x1='84' y1='36' x2='36' y2='84'/%3E%3Cline x1='60' y1='26' x2='60' y2='94'/%3E%3Cline x1='26' y1='60' x2='94' y2='60'/%3E%3C/g%3E%3Ccircle cx='60' cy='60' r='11' fill='none' stroke='%23A6EE2E' stroke-width='4'/%3E%3Ccircle cx='60' cy='60' r='5' fill='%23A6EE2E'/%3E%3C/svg%3E");
+    background-size: contain; background-repeat: no-repeat; }
+  .ph-body { padding: 16px; display: flex; flex-direction: column; gap: 11px; overflow: hidden; }
+  .ph-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 13px 14px; box-shadow: var(--shadow-sm); }
+  .ph-card .row { display: flex; justify-content: space-between; align-items: center; }
+  .ph-name { font-weight: 700; font-size: 13px; color: var(--navy); }
+  .ph-badge { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #E4F2E8; color: var(--court); }
+  .ph-meta { font-size: 11px; color: var(--muted); margin-top: 5px; }
+  .ph-tens { display: flex; gap: 10px; margin-top: 9px; }
+  .ph-tens div { flex: 1; background: var(--string); border-radius: 8px; padding: 7px 9px; }
+  .ph-tens .lbl { font-size: 8px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); font-weight: 700; }
+  .ph-tens .val { font-family: 'Fraunces'; font-weight: 900; font-size: 17px; color: var(--navy); }
+  .ph-bar { height: 7px; border-radius: 999px; background: var(--line); margin-top: 11px; overflow: hidden; }
+  .ph-bar i { display: block; height: 100%; width: 68%; background: var(--clay); border-radius: 999px; }
+
+  /* ── LOGOS / TARGET STRIP ────────────────────────────── */
+  .strip { background: var(--string); border-block: 1px solid var(--line); padding: 26px 0; }
+  .strip .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .strip .lbl { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .strip .items { display: flex; gap: 30px; flex-wrap: wrap; }
+  .strip .items span { font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 8px; font-size: 15px; }
+
+  /* ── PROBLEM ─────────────────────────────────────────── */
+  .problem h2 { font-size: clamp(30px, 4.2vw, 46px); font-weight: 900; color: var(--navy); max-width: 15ch; margin-bottom: 22px; }
+  .problem .grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+  .problem-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .problem-list li { display: flex; gap: 14px; font-size: 16px; }
+  .problem-list .x { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: #FBE4DA; color: var(--clay-deep);
+    display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+  .solution-card { background: var(--navy); color: var(--string); border-radius: var(--radius); padding: 38px 34px; box-shadow: var(--shadow); }
+  .solution-card .tag { color: #F0B48C; font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; display: block; }
+  .solution-card h3 { font-size: 26px; color: #fff; margin-bottom: 14px; font-weight: 600; }
+  .solution-card p { color: #C4D0DC; font-size: 16px; }
+
+  /* ── FEATURES ────────────────────────────────────────── */
+  .features { background: var(--string); }
+  .sec-head { text-align: center; max-width: 40ch; margin: 0 auto 56px; }
+  .sec-head .eyebrow { justify-content: center; }
+  .sec-head h2 { font-size: clamp(30px, 4.2vw, 46px); font-weight: 900; color: var(--navy); margin-bottom: 16px; }
+  .sec-head p { color: var(--muted); font-size: 17px; }
+  .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .feat {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px 24px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s;
+  }
+  .feat:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: transparent; }
+  .feat .ico { width: 50px; height: 50px; border-radius: 13px; display: grid; place-items: center; font-size: 25px; margin-bottom: 16px;
+    background: linear-gradient(150deg, #FBEADF, #F6DCC9); }
+  .feat.g2 .ico { background: linear-gradient(150deg, #E1F0E7, #CFE8D8); }
+  .feat.g3 .ico { background: linear-gradient(150deg, #E2E9F5, #D3DEF2); }
+  .feat.g4 .ico { background: linear-gradient(150deg, #F7EFD5, #F0E4BC); }
+  .feat h3 { font-size: 19px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+  .feat p { font-size: 14.5px; color: var(--muted); }
+  .feat .pro { display: inline-block; margin-top: 12px; font-size: 10px; font-weight: 700; letter-spacing: .06em;
+    padding: 3px 9px; border-radius: 999px; background: linear-gradient(135deg, var(--gold), #E0C158); color: #fff; }
+
+  /* ── SHOWCASE / SCREENSHOTS ──────────────────────────── */
+  .showcase { background: var(--navy); color: var(--string); overflow: hidden; }
+  .showcase .sec-head h2 { color: #fff; }
+  .showcase .sec-head p { color: #A9B7C6; }
+  .showcase .eyebrow { color: #F0B48C; }
+  .showcase .eyebrow::before { background: #F0B48C; }
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .shot {
+    background: linear-gradient(160deg, #16324C, #0C1E30); border: 1px dashed #35516D;
+    border-radius: var(--radius); aspect-ratio: 9/16; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px; text-align: center; padding: 24px;
+    transition: transform .2s, border-color .2s;
+  }
+  .shot:hover { transform: translateY(-5px); border-color: var(--clay); }
+  .shot .ph-ic { font-size: 40px; opacity: .85; }
+  .shot .cap { font-weight: 600; font-size: 15px; color: #DCE5EE; }
+  .shot .sub { font-size: 12.5px; color: #7C8DA0; }
+  .showcase .note { text-align: center; margin-top: 30px; font-size: 13.5px; color: #6E8093; }
+
+  /* ── HOW IT WORKS ────────────────────────────────────── */
+  .how .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; counter-reset: s; margin-top: 20px; }
+  .step { position: relative; padding-top: 20px; }
+  .step .n { font-family: 'Fraunces'; font-weight: 900; font-size: 42px; color: var(--clay); line-height: 1; margin-bottom: 12px; opacity: .9; }
+  .step h3 { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 7px; }
+  .step p { font-size: 14px; color: var(--muted); }
+  .step::before { content: ''; position: absolute; top: 0; left: 0; width: 40px; height: 3px; background: var(--clay); border-radius: 2px; }
+
+  /* ── ANYWHERE / MULTI-DEVICE ─────────────────────────── */
+  .anywhere { background: var(--paper); }
+  .anywhere .grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
+  .anywhere h2 { font-size: clamp(30px, 4.2vw, 46px); font-weight: 900; color: var(--navy); margin-bottom: 18px; max-width: 14ch; }
+  .anywhere .lede { font-size: 17px; color: var(--muted); margin-bottom: 26px; }
+  .anywhere .dev-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .anywhere .dev-list li { display: flex; gap: 14px; align-items: flex-start; }
+  .anywhere .dev-list .di { flex-shrink: 0; width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; font-size: 21px; background: linear-gradient(150deg, #FBEADF, #F6DCC9); }
+  .anywhere .dev-list li:nth-child(2) .di { background: linear-gradient(150deg, #E1F0E7, #CFE8D8); }
+  .anywhere .dev-list li:nth-child(3) .di { background: linear-gradient(150deg, #E2E9F5, #D3DEF2); }
+  .anywhere .dev-list b { color: var(--navy); font-weight: 600; font-size: 16px; }
+  .anywhere .dev-list p { font-size: 14.5px; color: var(--muted); margin-top: 2px; }
+  /* device mock cluster */
+  .devices { position: relative; display: flex; align-items: flex-end; justify-content: center; min-height: 300px; }
+  .laptop { width: 78%; background: var(--navy); border-radius: 14px 14px 0 0; padding: 12px 12px 0; box-shadow: var(--shadow); }
+  .laptop-screen { background: var(--paper); border-radius: 7px; overflow: hidden; aspect-ratio: 16/10; display: flex; flex-direction: column; }
+  .laptop-bar { background: var(--navy); height: 26px; display: flex; align-items: center; gap: 5px; padding: 0 10px; }
+  .laptop-bar span { width: 8px; height: 8px; border-radius: 50%; background: #3A526B; }
+  .laptop-body { flex: 1; padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .lb-card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 9px; }
+  .lb-card .lb-t { font-size: 9px; font-weight: 700; color: var(--navy); }
+  .lb-card .lb-m { font-size: 7.5px; color: var(--muted); margin-top: 3px; }
+  .lb-card .lb-chip { display: inline-block; margin-top: 6px; font-size: 7px; font-weight: 700; padding: 2px 6px; border-radius: 999px; background: #E4F2E8; color: var(--court); }
+  .laptop-base { height: 12px; background: linear-gradient(180deg, #17324B, #0C1E30); border-radius: 0 0 12px 12px; margin: 0 -12px; }
+  .laptop-foot { width: 88%; height: 7px; background: #0C1E30; border-radius: 0 0 9px 9px; margin: 0 auto; }
+  .mini-phone { position: absolute; right: 2%; bottom: 0; width: 88px; background: linear-gradient(160deg, #1D3B58, #0B1C2E); border-radius: 15px; padding: 5px; box-shadow: 0 20px 40px -12px rgba(0,0,0,.5); }
+  .mini-phone-screen { background: var(--paper); border-radius: 11px; overflow: hidden; aspect-ratio: 9/17; }
+  .mini-top { background: var(--navy); height: 34px; }
+  .mini-body { padding: 6px; display: flex; flex-direction: column; gap: 5px; }
+  .mini-card { background: #fff; border: 1px solid var(--line); border-radius: 6px; height: 26px; }
+  .mini-card.tall { height: 40px; }
+
+  /* ── PRICING ─────────────────────────────────────────── */
+  .pricing { background: var(--string); }
+  .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+  .plan { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 34px 30px; display: flex; flex-direction: column; }
+  .plan.feat-plan { background: var(--navy); color: var(--string); border-color: var(--navy); position: relative; box-shadow: var(--shadow); transform: translateY(-8px); }
+  .plan .pname { font-family: 'Fraunces'; font-weight: 600; font-size: 22px; color: var(--navy); margin-bottom: 6px; }
+  .plan.feat-plan .pname { color: #fff; }
+  .plan .ptag { position: absolute; top: 18px; right: 20px; font-size: 10px; font-weight: 700; letter-spacing: .08em;
+    background: linear-gradient(135deg, var(--gold), #E0C158); color: #fff; padding: 4px 11px; border-radius: 999px; }
+  .plan .price { font-family: 'Fraunces'; font-weight: 900; font-size: 40px; color: var(--navy); margin: 8px 0 2px; }
+  .plan.feat-plan .price { color: #6FD79B; }
+  .plan .per { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+  .plan.feat-plan .per { color: #9DB0C2; }
+  .plan ul { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 26px; flex: 1; }
+  .plan li { font-size: 14.5px; display: flex; gap: 10px; }
+  .plan li::before { content: '✓'; color: var(--court); font-weight: 700; flex-shrink: 0; }
+  .plan.feat-plan li::before { color: #6FD79B; }
+  .plan .btn { width: 100%; justify-content: center; }
+  .price-note { text-align: center; margin-top: 30px; font-size: 15px; color: var(--muted); }
+  .price-note b { color: var(--clay-deep); }
+
+  /* ── DOWNLOADS ───────────────────────────────────────── */
+  .downloads { background: var(--paper); }
+  .dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .dl {
+    display: flex; gap: 20px; align-items: center; background: var(--string);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 30px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .dl:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .dl .dl-ic { width: 62px; height: 62px; border-radius: 15px; flex-shrink: 0; display: grid; place-items: center; font-size: 30px; }
+  .dl.doc .dl-ic { background: linear-gradient(150deg, #E2E9F5, #CBD9F0); }
+  .dl.pdf .dl-ic { background: linear-gradient(150deg, #FBEADF, #F5D3C0); }
+  .dl h3 { font-size: 19px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .dl p { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+  .dl .dl-link { font-weight: 600; font-size: 14px; color: var(--clay); display: inline-flex; align-items: center; gap: 6px; }
+  .dl:hover .dl-link { gap: 10px; }
+
+  /* ── FINAL CTA ───────────────────────────────────────── */
+  .final { color: var(--string); text-align: center; position: relative; overflow: hidden;
+    background:
+      radial-gradient(ellipse 80% 70% at 30% 0%, #BB6A45 0%, transparent 55%),
+      radial-gradient(ellipse 70% 80% at 85% 100%, #8E5138 0%, transparent 60%),
+      linear-gradient(155deg, #AC6144 0%, #995440 50%, #834737 100%); }
+  .final-clay { position: absolute; inset: 0; pointer-events: none; opacity: 0.38; mix-blend-mode: multiply;
+    background-image:
+      repeating-linear-gradient(92deg, rgba(120,50,25,0.16) 0 2px, transparent 2px 7px),
+      repeating-linear-gradient(0deg, rgba(150,70,40,0.10) 0 1px, transparent 1px 5px); }
+  .final-court { position: absolute; inset: 0; pointer-events: none; }
+  .final-court .line { position: absolute; background: rgba(255,247,238,0.5); }
+  .final-court .bl { left: -5%; right: -5%; bottom: 14%; height: 3px; }
+  .final-court .sl { left: -5%; right: -5%; bottom: 46%; height: 2px; opacity: .7; }
+  .final-court .cv { left: 50%; bottom: 14%; height: 32%; width: 2px; transform: translateX(-50%); opacity: .6; }
+  .final-strings { position: absolute; inset: 0; opacity: 0.13; pointer-events: none;
+    background-image: repeating-linear-gradient(90deg, var(--string) 0 1.5px, transparent 1.5px 40px), repeating-linear-gradient(0deg, var(--string) 0 1.5px, transparent 1.5px 40px);
+    mask-image: radial-gradient(ellipse 60% 90% at 50% 50%, #000 20%, transparent 70%); }
+  .final .wrap { position: relative; }
+  .final h2 { font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: #fff; margin-bottom: 18px; text-shadow: 0 2px 20px rgba(80,30,10,0.25); }
+  .final p { font-size: 18px; color: #FBEADD; margin-bottom: 34px; }
+  .final .hero-ctas { justify-content: center; }
+  .final .btn-primary { background: var(--navy); color: #fff; }
+  .final .btn-primary:hover { background: #071626; }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  footer { background: #0A1926; color: #8195A8; padding: 46px 0 32px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  footer .logo { color: #fff; font-size: 19px; }
+  footer .f-links { display: flex; gap: 24px; flex-wrap: wrap; font-size: 14px; }
+  footer .f-links a:hover { color: #fff; }
+  footer .copy { width: 100%; border-top: 1px solid #17293A; padding-top: 22px; font-size: 13px; color: #5E7286; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .burger { display: block; }
+    .hero .wrap { grid-template-columns: 1fr; text-align: center; }
+    .hero .eyebrow { justify-content: center; }
+    .hero p.lede { margin-inline: auto; }
+    .hero-ctas, .hero-trust { justify-content: center; }
+    .phone { margin-top: 20px; transform: rotate(0); }
+    .problem .grid { grid-template-columns: 1fr; gap: 34px; }
+    .anywhere .grid { grid-template-columns: 1fr; gap: 40px; }
+    .devices { min-height: 260px; margin-top: 10px; }
+    .feat-grid, .shots, .price-grid, .dl-grid { grid-template-columns: 1fr; }
+    .how .steps { grid-template-columns: 1fr 1fr; gap: 26px; }
+    .plan.feat-plan { transform: none; }
+    .strip .wrap { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .feat-grid, .shots { grid-template-columns: 1fr; }
+    .how .steps { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#" class="logo"><span class="ball"></span>StringLog <em>Pro</em></a>
+      <div class="nav-links">
+        <a href="#funzioni">Funzioni</a>
+        <a href="#dispositivi">Dispositivi</a>
+        <a href="#prezzi">Prezzi</a>
+        <a href="#download">Download</a>
+        <a href="https://app.stringlogpro.com" class="nav-cta">Apri l'app</a>
+      </div>
+      <button class="burger" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">☰</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-clay"></div>
+  <div class="hero-court">
+    <div class="line baseline"></div>
+    <div class="line service"></div>
+    <div class="line center-v"></div>
+    <div class="line sideline-l"></div>
+    <div class="line sideline-r"></div>
+  </div>
+  <div class="hero-strings"></div>
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Gestione incordature da tennis</span>
+      <h1>La tua corda.<br>La tua <span class="accent">storia.</span></h1>
+      <p class="lede">Registra ogni incordatura, tieni sotto controllo i costi, ricevi il promemoria quando è ora di cambiare corda. Tutto in un'app, sempre in tasca.</p>
+      <div class="hero-ctas">
+        <a href="https://app.stringlogpro.com" class="btn btn-primary">Prova gratis →</a>
+        <a href="#download" class="btn btn-light">Scarica il manuale</a>
+      </div>
+      <div class="hero-trust">
+        <span>🎾 <b>Per giocatori e maestri</b></span>
+        <span>📱 <b>iPhone &amp; Android</b></span>
+        <span>🔒 <b>Dati in Europa</b></span>
+      </div>
+    </div>
+    <!-- phone mockup -->
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="ph-top">
+          <div class="ph-brand"><span class="d"></span>StringLog Pro</div>
+        </div>
+        <div class="ph-body">
+          <div class="ph-card">
+            <div class="row"><span class="ph-name">Signum Pro Poly Plasma</span><span class="ph-badge">● Attiva</span></div>
+            <div class="ph-meta">Wilson Blade 101L · Clemente M.</div>
+            <div class="ph-tens">
+              <div><div class="lbl">Vert.</div><div class="val">21.0<small style="font-size:10px">kg</small></div></div>
+              <div><div class="lbl">Oriz.</div><div class="val">20.0<small style="font-size:10px">kg</small></div></div>
+            </div>
+            <div class="ph-bar"><i></i></div>
+            <div class="ph-meta" style="margin-top:8px">18.0h giocate · promemoria a 20h</div>
+          </div>
+          <div class="ph-card">
+            <div class="row"><span class="ph-name">💰 Costo incordatura</span></div>
+            <div class="ph-meta">Corda €4,64 · Manodopera €5,00</div>
+            <div class="ph-tens"><div style="background:#E4F2E8"><div class="lbl">Totale</div><div class="val" style="color:var(--court)">€9,64</div></div></div>
+          </div>
+          <div class="ph-card" style="background:#F0F4FF;border-color:#C5D5F5">
+            <div class="row"><span class="ph-name" style="color:#2D6CDF">🤖 Analisi AI</span></div>
+            <div class="ph-meta">Tensione ottimale 20×19 kg · durata stimata 18-22h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARGET STRIP -->
+<div class="strip">
+  <div class="wrap">
+    <span class="lbl">Pensato per</span>
+    <div class="items">
+      <span>🎾 Giocatori</span>
+      <span>🏫 Maestri</span>
+      <span>👨‍👩‍👦 Genitori</span>
+      <span>🏟️ Circoli</span>
+      <span>🧵 Incordatori</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <span class="eyebrow">Il problema</span>
+        <h2>Le corde si gestiscono ancora su foglietti volanti.</h2>
+        <ul class="problem-list">
+          <li><span class="x">✕</span><div><b>Nessuna memoria.</b> Ogni incordatura riparte da zero, senza storico.</div></li>
+          <li><span class="x">✕</span><div><b>Rotture a sorpresa.</b> Le corde cedono in partita, senza preavviso.</div></li>
+          <li><span class="x">✕</span><div><b>Costi opachi.</b> Impossibile sapere quanto costa davvero ogni incordatura.</div></li>
+          <li><span class="x">✕</span><div><b>Tensioni a sensazione.</b> Scelte a occhio, senza dati su cui basarsi.</div></li>
+        </ul>
+      </div>
+      <div class="solution-card">
+        <span class="tag">La soluzione</span>
+        <h3>Tutto in ordine, tutto in un posto.</h3>
+        <p>StringLog Pro porta ordine professionale nella gestione delle corde: storico completo, costi calcolati al centesimo, promemoria automatici, analisi con intelligenza artificiale e report pronti da consegnare. Accessibile ovunque, anche dal campo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="funzioni">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Funzioni</span>
+      <h2>Tutto quello che serve, niente di superfluo</h2>
+      <p>Ogni funzione nasce da un'esigenza reale di chi vive il tennis ogni giorno.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat g1"><div class="ico">📋</div><h3>Storico incordature</h3><p>Corda, calibro, tensioni, incordatore, nodi e note. Ogni incordatura tracciata e consultabile per sempre.</p></div>
+      <div class="feat g2"><div class="ico">🧵</div><h3>Matasse e costi</h3><p>Scala i metri usati da ogni matassa e calcola il costo esatto di ogni incordatura, manodopera inclusa.<span class="pro">★ PRO</span></p></div>
+      <div class="feat g3"><div class="ico">🤖</div><h3>Analisi AI</h3><p>L'intelligenza artificiale suggerisce tensione ottimale, valuta il calibro e stima la durata della corda.<span class="pro">★ PRO</span></p></div>
+      <div class="feat g4"><div class="ico">📊</div><h3>Statistiche giocatore</h3><p>Ore, sessioni, durata delle corde e analisi tensione-durata. Grafici che ti dicono cosa incordare.<span class="pro">★ PRO</span></p></div>
+      <div class="feat g1"><div class="ico">🔔</div><h3>Promemoria doppi</h3><p>Email e notifica push sul telefono quando è ora di reincordare. Soglia in ore di gioco o giorni.</p></div>
+      <div class="feat g2"><div class="ico">📄</div><h3>Scheda PDF</h3><p>Un documento professionale per ogni racchetta, pronto da stampare o consegnare al giocatore.<span class="pro">★ PRO</span></p></div>
+      <div class="feat g3"><div class="ico">📱</div><h3>App installabile</h3><p>Si installa su iPhone e Android come un'app nativa. A schermo intero, anche offline.</p></div>
+      <div class="feat g4"><div class="ico">⧉</div><h3>Duplica e rotta</h3><p>Segnala una rottura o duplica l'ultima incordatura in un tap. Il flusso più comune, semplificato.</p></div>
+      <div class="feat g1"><div class="ico">👥</div><h3>Multi-utente</h3><p>Quattro ruoli con accessi separati. Genitori e allievi vedono i propri dati in sola lettura.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="showcase">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Uno sguardo dentro</span>
+      <h2>Semplice da usare, potente sotto il cofano</h2>
+      <p>Un'interfaccia pulita che funziona bene tanto sul telefono in campo quanto sul computer a casa.</p>
+    </div>
+    <div class="shots">
+      <div class="shot"><span class="ph-ic">🎾</span><span class="cap">Elenco giocatori</span><span class="sub">Tutte le racchette a colpo d'occhio</span></div>
+      <div class="shot"><span class="ph-ic">🧵</span><span class="cap">Dettaglio incordatura</span><span class="sub">Tensioni, ore, costi e AI</span></div>
+      <div class="shot"><span class="ph-ic">📊</span><span class="cap">Statistiche e grafici</span><span class="sub">Durata corde e andamento</span></div>
+    </div>
+    <p class="note">Le schermate reali dell'app verranno inserite qui.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="come">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Come funziona</span>
+      <h2>Operativo in cinque passi</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Registrati</h3><p>Crea l'account in due minuti e attendi l'approvazione.</p></div>
+      <div class="step"><div class="n">2</div><h3>Aggiungi racchette</h3><p>Crea i giocatori e le loro racchette con tutti i dettagli.</p></div>
+      <div class="step"><div class="n">3</div><h3>Registra la corda</h3><p>Corda, tensioni, matassa e soglia di promemoria.</p></div>
+      <div class="step"><div class="n">4</div><h3>Traccia le sessioni</h3><p>Aggiungi le ore di gioco dopo ogni allenamento.</p></div>
+      <div class="step"><div class="n">5</div><h3>Ricevi l'avviso</h3><p>App ed email ti dicono quando reincordare.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ANYWHERE / MULTI-DEVICE -->
+<section class="anywhere" id="dispositivi">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <span class="eyebrow">Ovunque tu sia</span>
+        <h2>Telefono in campo, computer a casa</h2>
+        <p class="lede">StringLog Pro è un'applicazione web: non devi scaricare nulla da uno store. Apri il browser e ci sei. Gli stessi dati, sempre sincronizzati, su qualsiasi dispositivo.</p>
+        <ul class="dev-list">
+          <li>
+            <span class="di">📱</span>
+            <div><b>Sul telefono</b><p>Installala come app dalla schermata Home e usala al volo tra una sessione e l'altra, anche in campo.</p></div>
+          </li>
+          <li>
+            <span class="di">💻</span>
+            <div><b>Sul computer</b><p>Dal browser del PC gestisci tutto con comodità: inserire dati, consultare statistiche e stampare i PDF è ancora più veloce con schermo e tastiera.</p></div>
+          </li>
+          <li>
+            <span class="di">🔄</span>
+            <div><b>Sempre sincronizzato</b><p>Registri un'incordatura dal telefono e la ritrovi subito sul computer. Un unico account, nessuna copia manuale.</p></div>
+          </li>
+        </ul>
+      </div>
+      <!-- device cluster -->
+      <div class="devices">
+        <div style="width:78%">
+          <div class="laptop">
+            <div class="laptop-screen">
+              <div class="laptop-bar"><span></span><span></span><span></span></div>
+              <div class="laptop-body">
+                <div class="lb-card"><div class="lb-t">🎾 Clemente M.</div><div class="lb-m">2 racchette · 12 incordature</div><span class="lb-chip">● Attiva</span></div>
+                <div class="lb-card"><div class="lb-t">📊 Statistiche</div><div class="lb-m">48h · 7 sessioni</div><span class="lb-chip" style="background:#E2E9F5;color:#2D6CDF">Grafici</span></div>
+                <div class="lb-card"><div class="lb-t">🧵 Signum Pro</div><div class="lb-m">21×20 kg · 18.0h</div></div>
+                <div class="lb-card"><div class="lb-t">💰 Costi mese</div><div class="lb-m">€ 62,40 · 5 corde</div></div>
+              </div>
+            </div>
+            <div class="laptop-base"></div>
+          </div>
+          <div class="laptop-foot"></div>
+        </div>
+        <div class="mini-phone">
+          <div class="mini-phone-screen">
+            <div class="mini-top"></div>
+            <div class="mini-body">
+              <div class="mini-card tall"></div>
+              <div class="mini-card"></div>
+              <div class="mini-card"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="prezzi">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Prezzi</span>
+      <h2>Inizia gratis, cresci quando vuoi</h2>
+      <p>Prezzi trasparenti, senza costi nascosti.</p>
+    </div>
+    <div class="price-grid">
+      <div class="plan">
+        <div class="pname">Starter</div>
+        <div class="price">Gratis</div>
+        <div class="per">per sempre</div>
+        <ul>
+          <li>Fino a 2 giocatori</li>
+          <li>2 racchette per giocatore</li>
+          <li>Storico 6 mesi</li>
+          <li>Sessioni di gioco</li>
+          <li>App mobile</li>
+        </ul>
+        <a href="https://app.stringlogpro.com" class="btn btn-ghost">Inizia gratis</a>
+      </div>
+      <div class="plan feat-plan">
+        <span class="ptag">★ Più scelto</span>
+        <div class="pname">Pro</div>
+        <div class="price">€ 9,90</div>
+        <div class="per">al mese</div>
+        <ul>
+          <li>Giocatori illimitati</li>
+          <li>Analisi AI</li>
+          <li>Matasse e costi</li>
+          <li>Statistiche avanzate</li>
+          <li>Scheda PDF</li>
+          <li>Notifiche push</li>
+        </ul>
+        <a href="https://app.stringlogpro.com" class="btn btn-primary">Passa a Pro</a>
+      </div>
+      <div class="plan">
+        <div class="pname">Circolo</div>
+        <div class="price">€ 24,90</div>
+        <div class="per">al mese</div>
+        <ul>
+          <li>Fino a 10 coach</li>
+          <li>Dashboard aggregata</li>
+          <li>Tutte le funzioni Pro</li>
+          <li>Branding personalizzato</li>
+          <li>Supporto prioritario</li>
+        </ul>
+        <a href="mailto:luigi.melisi@gmail.com" class="btn btn-ghost">Contattaci</a>
+      </div>
+    </div>
+    <p class="price-note">🎁 <b>Offerta di lancio:</b> i primi 20 iscritti ottengono il piano Pro gratis per 3 mesi.</p>
+  </div>
+</section>
+
+<!-- DOWNLOADS -->
+<section class="downloads" id="download">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Materiali</span>
+      <h2>Scarica e approfondisci</h2>
+      <p>Il manuale completo e la presentazione commerciale, pronti da consultare.</p>
+    </div>
+    <div class="dl-grid">
+      <a href="StringLogPro_Manuale.docx" download class="dl doc">
+        <div class="dl-ic">📘</div>
+        <div>
+          <h3>Manuale utente</h3>
+          <p>Guida completa a tutte le funzioni, passo dopo passo.</p>
+          <span class="dl-link">Scarica il manuale →</span>
+        </div>
+      </a>
+      <a href="StringLogPro_Presentazione.docx" download class="dl pdf">
+        <div class="dl-ic">📕</div>
+        <div>
+          <h3>Presentazione commerciale</h3>
+          <p>Panoramica dell'app, funzioni e piani, ideale da condividere.</p>
+          <span class="dl-link">Scarica la presentazione →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="final-clay"></div>
+  <div class="final-court">
+    <div class="line bl"></div>
+    <div class="line sl"></div>
+    <div class="line cv"></div>
+  </div>
+  <div class="final-strings"></div>
+  <div class="wrap">
+    <h2>Pronto a mettere ordine<br>nelle tue corde?</h2>
+    <p>Inizia gratis oggi. Nessuna installazione complicata, nessun impegno.</p>
+    <div class="hero-ctas">
+      <a href="https://app.stringlogpro.com" class="btn btn-primary">Apri StringLog Pro →</a>
+      <a href="#download" class="btn btn-light">Scarica il manuale</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <a href="#" class="logo"><span class="ball"></span>StringLog <em style="color:var(--clay)">Pro</em></a>
+    <div class="f-links">
+      <a href="#funzioni">Funzioni</a>
+      <a href="#prezzi">Prezzi</a>
+      <a href="#download">Download</a>
+      <a href="https://app.stringlogpro.com">Apri l'app</a>
+      <a href="mailto:luigi.melisi@gmail.com">Contatti</a>
+    </div>
+    <div class="copy">© 2026 StringLog Pro · Gestione professionale delle incordature da tennis · Dati ospitati in Europa</div>
+  </div>
+</footer>
+
+</body>
+</html>
