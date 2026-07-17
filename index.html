@@ -218,18 +218,22 @@
   .showcase .sec-head p { color: #A9B7C6; }
   .showcase .eyebrow { color: #F0B48C; }
   .showcase .eyebrow::before { background: #F0B48C; }
-  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .shots { display: flex; flex-direction: column; gap: 22px; }
+  .shots-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
   .shot {
-    background: linear-gradient(160deg, #16324C, #0C1E30); border: 1px dashed #35516D;
-    border-radius: var(--radius); aspect-ratio: 9/16; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 14px; text-align: center; padding: 24px;
-    transition: transform .2s, border-color .2s;
+    background: linear-gradient(160deg, #16324C, #0C1E30); border: 1px solid #2A4A66;
+    border-radius: var(--radius); overflow: hidden; margin: 0;
+    box-shadow: 0 20px 50px -20px rgba(0,0,0,.55);
+    transition: transform .2s ease, border-color .2s ease;
   }
   .shot:hover { transform: translateY(-5px); border-color: var(--clay); }
-  .shot .ph-ic { font-size: 40px; opacity: .85; }
-  .shot .cap { font-weight: 600; font-size: 15px; color: #DCE5EE; }
-  .shot .sub { font-size: 12.5px; color: #7C8DA0; }
-  .showcase .note { text-align: center; margin-top: 30px; font-size: 13.5px; color: #6E8093; }
+  .shot img { width: 100%; height: auto; display: block; }
+  .shot figcaption { padding: 15px 18px; border-top: 1px solid #24435F; }
+  .shot .cap { display: block; font-weight: 600; font-size: 15px; color: #DCE5EE; }
+  .shot .sub { display: block; font-size: 12.5px; color: #7C8DA0; margin-top: 3px; }
+  /* barra finestra browser sopra lo screenshot desktop */
+  .browser-bar { height: 30px; background: #0A1A2A; display: flex; align-items: center; gap: 7px; padding: 0 14px; border-bottom: 1px solid #24435F; }
+  .browser-bar span { width: 9px; height: 9px; border-radius: 50%; background: #35516D; }
 
   /* ── HOW IT WORKS ────────────────────────────────────── */
   .how .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; counter-reset: s; margin-top: 20px; }
@@ -354,13 +358,14 @@
     .problem .grid { grid-template-columns: 1fr; gap: 34px; }
     .anywhere .grid { grid-template-columns: 1fr; gap: 40px; }
     .devices { min-height: 260px; margin-top: 10px; }
-    .feat-grid, .shots, .price-grid, .dl-grid { grid-template-columns: 1fr; }
+    .feat-grid, .price-grid, .dl-grid { grid-template-columns: 1fr; }
+    .shots-row { grid-template-columns: 1fr; }
     .how .steps { grid-template-columns: 1fr 1fr; gap: 26px; }
     .plan.feat-plan { transform: none; }
     .strip .wrap { flex-direction: column; text-align: center; }
   }
   @media (max-width: 560px) {
-    .feat-grid, .shots { grid-template-columns: 1fr; }
+    .feat-grid { grid-template-columns: 1fr; }
     .how .steps { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto; } }
@@ -512,11 +517,31 @@
       <p>Un'interfaccia pulita che funziona bene tanto sul telefono in campo quanto sul computer a casa.</p>
     </div>
     <div class="shots">
-      <div class="shot"><span class="ph-ic">🎾</span><span class="cap">Elenco giocatori</span><span class="sub">Tutte le racchette a colpo d'occhio</span></div>
-      <div class="shot"><span class="ph-ic">🧵</span><span class="cap">Dettaglio incordatura</span><span class="sub">Tensioni, ore, costi e AI</span></div>
-      <div class="shot"><span class="ph-ic">📊</span><span class="cap">Statistiche e grafici</span><span class="sub">Durata corde e andamento</span></div>
+      <figure class="shot">
+        <div class="browser-bar"><span></span><span></span><span></span></div>
+        <img src="screenshots/giocatori.png" alt="Elenco giocatori in StringLog Pro" loading="lazy" width="1697" height="855">
+        <figcaption>
+          <span class="cap">Elenco giocatori</span>
+          <span class="sub">Tutti i tuoi giocatori e le loro racchette a colpo d'occhio</span>
+        </figcaption>
+      </figure>
+      <div class="shots-row">
+        <figure class="shot">
+          <img src="screenshots/nuova-racchetta.png" alt="Form nuova racchetta" loading="lazy" width="526" height="783">
+          <figcaption>
+            <span class="cap">Nuova racchetta</span>
+            <span class="sub">Marca, peso, colore e soglie promemoria</span>
+          </figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="screenshots/statistiche.png" alt="Statistiche e analisi corde" loading="lazy" width="467" height="686">
+          <figcaption>
+            <span class="cap">Statistiche e analisi corde</span>
+            <span class="sub">Durata, tensione vs durata, frequenza reincordature</span>
+          </figcaption>
+        </figure>
+      </div>
     </div>
-    <p class="note">Le schermate reali dell'app verranno inserite qui.</p>
   </div>
 </section>
 
@@ -656,7 +681,7 @@
       <p>Il manuale completo e la presentazione commerciale, pronti da consultare.</p>
     </div>
     <div class="dl-grid">
-      <a href="StringLogPro_Manuale.pdf" download class="dl doc">
+      <a href="StringLogPro_Manuale.docx" download class="dl doc">
         <div class="dl-ic">📘</div>
         <div>
           <h3>Manuale utente</h3>
@@ -664,7 +689,7 @@
           <span class="dl-link">Scarica il manuale →</span>
         </div>
       </a>
-      <a href="StringLogPro_Presentazione.pdf" download class="dl pdf">
+      <a href="StringLogPro_Presentazione.docx" download class="dl pdf">
         <div class="dl-ic">📕</div>
         <div>
           <h3>Presentazione commerciale</h3>
