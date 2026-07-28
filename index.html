@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
- <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYZGVNSYRS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -9,6 +9,7 @@
     gtag('js', new Date());
     gtag('config', 'G-ZYZGVNSYRS');
   </script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StringLog Pro — La tua corda. La tua storia.</title>
@@ -356,8 +357,18 @@
 
   /* ── RESPONSIVE ──────────────────────────────────────── */
   @media (max-width: 900px) {
-    .nav-links { display: none; }
     .burger { display: block; }
+    nav { position: relative; }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 0 0 14px 14px; box-shadow: 0 12px 30px -10px rgba(14,34,55,.2);
+      padding: 8px 0; z-index: 50;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 13px 22px; font-size: 16px; }
+    .nav-links a.nav-cta { margin: 8px 22px 4px; text-align: center; border-radius: 10px; }
     .hero .wrap { grid-template-columns: 1fr; text-align: center; }
     .hero .eyebrow { justify-content: center; }
     .hero p.lede { margin-inline: auto; }
@@ -394,7 +405,7 @@
         <a href="/blog/">Blog</a>
         <a href="https://app.stringlogpro.com" class="nav-cta">Apri l'app</a>
       </div>
-      <button class="burger" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">☰</button>
+      <button class="burger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
     </nav>
   </div>
 </header>
@@ -529,7 +540,7 @@
     <div class="shots">
       <figure class="shot">
         <div class="browser-bar"><span></span><span></span><span></span></div>
-        <img src="/giocatori.png" alt="Elenco giocatori in StringLog Pro" loading="lazy" width="1697" height="855">
+        <img src="screenshots/giocatori.png" alt="Elenco giocatori in StringLog Pro" loading="lazy" width="1697" height="855">
         <figcaption>
           <span class="cap">Elenco giocatori</span>
           <span class="sub">Tutti i tuoi giocatori e le loro racchette a colpo d'occhio</span>
@@ -537,14 +548,14 @@
       </figure>
       <div class="shots-row">
         <figure class="shot">
-          <img src="/nuova-racchetta.png" alt="Form nuova racchetta" loading="lazy" width="526" height="783">
+          <img src="screenshots/nuova-racchetta.png" alt="Form nuova racchetta" loading="lazy" width="526" height="783">
           <figcaption>
             <span class="cap">Nuova racchetta</span>
             <span class="sub">Marca, peso, colore e soglie promemoria</span>
           </figcaption>
         </figure>
         <figure class="shot">
-          <img src="/statistiche.png" alt="Statistiche e analisi corde" loading="lazy" width="467" height="686">
+          <img src="screenshots/statistiche.png" alt="Statistiche e analisi corde" loading="lazy" width="467" height="686">
           <figcaption>
             <span class="cap">Statistiche e analisi corde</span>
             <span class="sub">Durata, tensione vs durata, frequenza reincordature</span>
