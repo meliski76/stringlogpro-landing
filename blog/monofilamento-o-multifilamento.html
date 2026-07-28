@@ -9,6 +9,7 @@
     gtag('js', new Date());
     gtag('config', 'G-ZYZGVNSYRS');
   </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Monofilamento o multifilamento? Quale corda da tennis scegliere · StringLog Pro</title>
@@ -125,7 +126,14 @@
     .f-links a { font-size:14px; color:rgba(255,255,255,.8); }
     .copy { font-size:13px; color:rgba(255,255,255,.55); }
 
-    @media(max-width:640px){ .nav-links{display:none;} .burger{display:block;} }
+    @media(max-width:640px){
+      .burger{display:block;}
+      nav{position:relative;}
+      .nav-links{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch; gap:0; background:#FBF7F0; border:1px solid rgba(14,34,55,.12); border-radius:0 0 14px 14px; box-shadow:0 12px 30px -10px rgba(14,34,55,.2); padding:8px 0; z-index:50; }
+      .nav-links.open{display:flex;}
+      .nav-links a{padding:13px 22px; font-size:16px;}
+      .nav-links a.nav-cta{margin:8px 22px 4px; text-align:center; border-radius:10px;}
+    }
   </style>
 </head>
 <body>
@@ -137,7 +145,7 @@
       <a href="/blog/">Blog</a>
       <a href="https://app.stringlogpro.com" class="nav-cta">Apri l'app</a>
     </div>
-    <button class="burger" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">☰</button>
+    <button class="burger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
   </nav>
 
   <div class="crumbs wrap" style="max-width:720px">
