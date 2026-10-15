@@ -262,9 +262,9 @@
         <p class="eb-sub">Come scegliere corda, calibro e tensione in modo ripetibile e misurabile. Per giocatori, maestri e incordatori.</p>
         <p class="eb-pull">Un giocatore sceglie il telaio dopo settimane di prove e la corda in trenta secondi. Eppure il piatto corde è l'unica parte della racchetta che tocca la palla.</p>
         <div class="eb-actions">
-          <a class="eb-btn js-estratto" href="/ebook/corde-e-tensioni-estratto.pdf" target="_blank" rel="noopener" data-ev="hero">Scarica l'estratto gratuito</a>
+          <a class="eb-btn js-estratto" href="/ebook/corde-e-tensioni-estratto.pdf" target="_blank" rel="noopener" data-ev="hero">Ricevi l'estratto gratuito</a>
           <a class="eb-btn eb-btn-line js-buy" href="#edizioni" data-ev="hero" hidden>Acquista la guida, <span class="js-price"></span></a>
-          <p class="eb-note js-nota-estratto">L'estratto è un PDF di 12 pagine: introduzione e primi due capitoli. Nessuna registrazione.</p>
+          <p class="eb-note js-nota-estratto">L'estratto è un PDF di 12 pagine: introduzione e primi due capitoli. Lascia la tua email e ricevi subito il link.</p>
         </div>
       </div>
       <div class="eb-cover-box">
@@ -382,8 +382,8 @@
             <div class="eb-foot">
               <!-- download diretto: è il comportamento di base -->
               <div class="js-diretto">
-                <a class="eb-btn eb-btn-dark js-estratto" href="/ebook/corde-e-tensioni-estratto.pdf" target="_blank" rel="noopener" data-ev="edizioni">Scarica l'estratto gratuito</a>
-                <p class="eb-small">Si apre subito, senza registrazione. Puoi condividerlo così com'è.</p>
+                <a class="eb-btn eb-btn-dark js-estratto" href="/ebook/corde-e-tensioni-estratto.pdf" target="_blank" rel="noopener" data-ev="edizioni">Ricevi l'estratto gratuito</a>
+                <p class="eb-small">Lascia la tua email: ti inviamo subito il link per leggerlo, valido su telefono, tablet e computer.</p>
               </div>
               <!-- modulo email: compare solo se LEAD_ENDPOINT è compilato (vedi in fondo alla pagina) -->
               <form class="eb-form js-lead" method="post" hidden novalidate>
@@ -479,22 +479,24 @@
 
   <script>
     /* ─── Configurazione della pagina ─────────────────────────────────────
-       CHECKOUT_URL   Link di acquisto. Finché resta vuoto la pagina mostra
-                      "In vendita a breve". Quando la vendita è attiva incolla
-                      qui il link del checkout: compaiono prezzo e pulsanti.
-       PREZZO         Prezzo mostrato. Deve essere quello finale, IVA inclusa.
-       ESTRATTO_URL   Da dove si scarica l'estratto. Di norma è il PDF che sta
-                      in questa stessa cartella.
-       LEAD_ENDPOINT  Lascialo vuoto per il download diretto dell'estratto.
-                      Se il backend dell'app ha la route dell'ebook, scrivi qui
-                      "https://app.stringlogpro.com/api/ebook/lead": al posto
-                      del download compare il modulo che invia l'estratto per
-                      email, con conferma dell'indirizzo.
-       PRIVACY_URL    Pagina dell'informativa privacy, linkata dal modulo.
+       Collegata allo store dell'app (app.stringlogpro.com): le CTA puntano
+       alle landing dei prodotti, che gestiscono email ed eventuale pagamento.
+
+       CHECKOUT_URL   Landing della guida completa nello store. Finché resta
+                      vuoto la pagina mostra "In vendita a breve"; se compilato
+                      compaiono prezzo e pulsanti "Acquista".
+       PREZZO         Prezzo mostrato (deve coincidere con quello del prodotto).
+       ESTRATTO_URL   Dove va la CTA dell'estratto. Due scelte:
+                        • landing store (email-gated, costruisce la lista) ← in uso
+                        • "/ebook/corde-e-tensioni-estratto.pdf" per il download
+                          diretto senza email (versione "nessuna registrazione").
+       LEAD_ENDPOINT  Lascialo vuoto: la raccolta email la fa lo store, non la
+                      pagina. (Il modulo interno resta disattivato.)
+       PRIVACY_URL    Pagina dell'informativa privacy.
        ──────────────────────────────────────────────────────────────────── */
-    var CHECKOUT_URL = "";
-    var PREZZO = "12,90 €";
-    var ESTRATTO_URL = "/ebook/corde-e-tensioni-estratto.pdf";
+    var CHECKOUT_URL = "https://app.stringlogpro.com/p/corde-e-tensioni";
+    var PREZZO = "9,90 €";
+    var ESTRATTO_URL = "https://app.stringlogpro.com/p/corde-e-tensioni-estratto";
     var LEAD_ENDPOINT = "";
     var PRIVACY_URL = "/privacy";
 
@@ -515,7 +517,8 @@
         });
       }
 
-      // Estratto: download diretto
+      // Estratto: la CTA porta alla landing (ESTRATTO_URL). Con la landing store
+      // è email-gated; col PDF diretto è un download senza registrazione.
       if (!LEAD_ENDPOINT) {
         all('.js-estratto').forEach(function (a) {
           a.setAttribute('href', ESTRATTO_URL);
@@ -524,7 +527,8 @@
         return;
       }
 
-      // Estratto: invio per email con conferma dell'indirizzo
+      // Estratto: invio per email con conferma dell'indirizzo (modulo interno,
+      // usato solo se LEAD_ENDPOINT è compilato — qui non è il caso)
       var form = document.querySelector('.js-lead');
       var msg = form.querySelector('.eb-form-msg');
       var btn = form.querySelector('button');
@@ -547,8 +551,6 @@
         });
       });
 
-      // L'app può essere in pausa: una richiesta leggera la risveglia mentre
-      // il visitatore legge, così l'invio del modulo non resta in attesa.
       try { fetch(LEAD_ENDPOINT.replace(/\/lead$/, '/ping'), { mode: 'no-cors' }).catch(function () {}); } catch (e) {}
 
       var testi = {
